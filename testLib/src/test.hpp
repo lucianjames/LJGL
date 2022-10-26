@@ -1,10 +1,7 @@
-// This test program uses ncurses to display hello world	
-#include <ncurses.h>
+#include <iostream>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 void helloWorld(){
-	initscr();
-	printw("Hello World!");
-	refresh();
-	getch();
-	endwin();
+	std::cout << "Hello World!" << std::endl;
 }

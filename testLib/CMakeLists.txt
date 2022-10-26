@@ -1,10 +1,22 @@
-
 add_library(testLibrary
 			src/test.hpp
 )
 
-find_package(Curses REQUIRED)
-target_link_libraries(testLibrary ncurses)
+find_package(OpenGL REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(glm REQUIRED)
+
+target_link_libraries(testLibrary PUBLIC
+	${OPENGL_LIBRARIES}
+	glfw
+	glm
+	GL
+	X11
+	pthread
+	Xrandr
+	Xi
+	dl
+)
 
 set_target_properties(testLibrary PROPERTIES LINKER_LANGUAGE CXX)
 
