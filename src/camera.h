@@ -65,6 +65,12 @@ public:
         return glm::lookAt(this->cameraPos, this->cameraPos + cameraGlobals::cameraFront, cameraGlobals::cameraUp);
     }
 
+    glm::mat4 getPerspectiveMatrix(){
+        int m_viewport[4];
+        glGetIntegerv(GL_VIEWPORT, m_viewport);
+        return glm::perspective(glm::radians(cameraGlobals::fov), (float)m_viewport[2] / (float)m_viewport[3], 0.1f, 100.0f);
+    }
+
     void processMovement(){
         if(glfwGetKey(this->window, GLFW_KEY_W) == GLFW_PRESS){ this->cameraPos += 0.05f * cameraGlobals::cameraFront; }
         if(glfwGetKey(this->window, GLFW_KEY_S) == GLFW_PRESS){ this->cameraPos -= 0.05f * cameraGlobals::cameraFront; }
