@@ -10,15 +10,18 @@ namespace LJGL{
 class VBO{
 private:
     unsigned int ID;
+
 public:
     ~VBO(){
         glDeleteBuffers(1, &ID);
     }
+
     void generate(std::vector<float> vertices, unsigned int size){
         glGenBuffers(1, &this->ID); // Generate 1 buffer
         glBindBuffer(GL_ARRAY_BUFFER, this->ID); // Bind the buffer to the GL_ARRAY_BUFFER target
         glBufferData(GL_ARRAY_BUFFER, size, &vertices[0], GL_STATIC_DRAW); // Send the data to the buffer
     }
+
     void bind(){
         glBindBuffer(GL_ARRAY_BUFFER, this->ID);
     }
@@ -44,21 +47,27 @@ class VBO_layout{
 private:
     std::vector<VBO_element> elements;
     unsigned int stride;
+
 public:
     VBO_layout() : stride(0) {};
+
     void pushFloat(unsigned int count){
         this->elements.push_back({GL_FLOAT, count, GL_FALSE});
         this->stride += VBO_element::getSizeOfType(GL_FLOAT) * count;
     }
+
     void pushInt(unsigned int count){
         this->elements.push_back({GL_UNSIGNED_INT, count, GL_FALSE});
         this->stride += VBO_element::getSizeOfType(GL_UNSIGNED_INT) * count;
     }
+
     void pushByte(unsigned int count){
         this->elements.push_back({GL_UNSIGNED_BYTE, count, GL_TRUE});
         this->stride += VBO_element::getSizeOfType(GL_UNSIGNED_BYTE) * count;
     }
+
     inline const std::vector<VBO_element> getElements() const { return this->elements; }
+    
     inline unsigned int getStride() const { return this->stride; }
 };
 

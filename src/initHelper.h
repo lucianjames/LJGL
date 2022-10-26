@@ -1,5 +1,6 @@
 /*
     This file isnt really that good.....
+    I wouldnt rely on it too much.
 */
 
 #include <glad/glad.h>

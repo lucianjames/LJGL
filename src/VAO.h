@@ -7,16 +7,20 @@ namespace LJGL{
 class VAO{
 private:
     unsigned int ID;
+
 public:
     VAO(){
         glGenVertexArrays(1, &this->ID);
     }
+
     ~VAO(){
         glDeleteVertexArrays(1, &this->ID);
     }
+
     void bind(){
         glBindVertexArray(this->ID);
     }
+    
     void addBuffer(VBO& vbo, const VBO_layout& layout){
         this->bind();
         vbo.bind();
