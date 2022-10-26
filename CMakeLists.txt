@@ -1,4 +1,4 @@
-add_library(testLibrary
+add_library(LJGL
 			src/ljgl.hpp
 			src/glad/glad.c
 )
@@ -7,7 +7,7 @@ find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
 
-target_link_libraries(testLibrary PUBLIC
+target_link_libraries(LJGL PUBLIC
 	${OPENGL_LIBRARIES}
 	glfw
 	glm
@@ -19,6 +19,6 @@ target_link_libraries(testLibrary PUBLIC
 	dl
 )
 
-set_target_properties(testLibrary PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(LJGL PROPERTIES LINKER_LANGUAGE CXX)
 
-target_include_directories(testLibrary PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_include_directories(LJGL PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
