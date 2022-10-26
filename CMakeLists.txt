@@ -11,12 +11,6 @@ target_link_libraries(LJGL PUBLIC
 	${OPENGL_LIBRARIES}
 	glfw
 	glm
-	GL
-	X11
-	pthread
-	Xrandr
-	Xi
-	dl
 )
 
 set_target_properties(LJGL PROPERTIES LINKER_LANGUAGE CXX)
