@@ -2,6 +2,8 @@
 #include <glad/glad.h>
 #include "VBO.h"
 
+namespace LJGL{
+
 class VAO{
 private:
     unsigned int ID;
@@ -28,3 +30,5 @@ public:
         }
     }
 };
+
+}

@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+namespace LJGL{
+
 // Vertex buffer object class, used to store vertex data:
 class VBO{
 private:
@@ -22,6 +24,7 @@ public:
     }
 };
 
+// This struct is used in the VBO_layout class to store data about each part of the vertex data layout:
 struct VBO_element{
     unsigned int type;
     unsigned int count;
@@ -58,3 +61,5 @@ public:
     inline const std::vector<VBO_element> getElements() const { return this->elements; }
     inline unsigned int getStride() const { return this->stride; }
 };
+
+}

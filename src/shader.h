@@ -6,6 +6,8 @@
 #include <iostream>
 #include <glad/glad.h>
 
+namespace LJGL{
+
 class shader{
 private:
     unsigned int compileShader(unsigned int type, const std::string& source){
@@ -29,11 +31,11 @@ private:
 
 public:
     unsigned int ID; // Shader ID, Ideally this wouldnt need to be public
+
     void createShader(const char* vertexPath, const char* fragmentPath) {
         // Stuff for debugging:
         int success;
         char infoLog[512];
-
         // ========= 1. Retrieve the vertex/fragment source code from filePath
         std::string vertexCode; // Create a string to store the vertex shader source code
         std::string fragmentCode; // Create a string to store the fragment shader source code
@@ -62,7 +64,6 @@ public:
         }
         const char* vShaderCode = vertexCode.c_str(); // Get the vertex shader code in a c-string
         const char* fShaderCode = fragmentCode.c_str(); // Get the fragment shader code in a c-string
-
         // ========== 2. Compile shaders:
         unsigned int vs = compileShader(GL_VERTEX_SHADER, vShaderCode); // Compile the vertex shader and store the id
         unsigned int fs = compileShader(GL_FRAGMENT_SHADER, fShaderCode); // Compile the fragment shader and store the id
@@ -78,7 +79,6 @@ public:
             glGetProgramInfoLog(ID, 512, NULL, infoLog);
             std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
         }
-
         // ========== 3. Clean up shaders
         // Delete the shaders as they're linked into our program now and no longer necessary
         glDeleteShader(vs);
@@ -88,8 +88,6 @@ public:
     void use() {
         glUseProgram(ID);
     }
-
-    // A bunch of uniform-setting functions:
 
     void setUniform4f(const std::string& name, float x, float y, float z, float w) const {
         glUniform4f(glGetUniformLocation(ID, name.c_str()), x, y, z, w);
@@ -127,3 +125,5 @@ public:
         glUniformMatrix2fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, matrix);
     }
 };  
+
+}

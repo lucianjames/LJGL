@@ -2,6 +2,8 @@
 #include <glad/glad.h>
 #include <vector>
 
+namespace LJGL{
+
 class EBO{
 private:
     unsigned int ID;
@@ -21,3 +23,5 @@ public:
         glDeleteBuffers(1, &this->ID);
     }
 };
+
+}
