@@ -3,6 +3,7 @@
 #include "EBO.h"
 #include "shader.h"
 #include "model.h"
+#include "camera.h"
 #include "initHelper.h"
 
 #include <glad/glad.h>
