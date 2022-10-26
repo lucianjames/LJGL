@@ -1,5 +1,6 @@
 add_library(testLibrary
-			src/test.hpp
+			src/ljgl.hpp
+			src/glad/glad.c
 )
 
 find_package(OpenGL REQUIRED)
