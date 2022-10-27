@@ -21,6 +21,11 @@ public:
             delete model;
         }
     }
+    
+    void createAddModel(std::string path){
+        model_EBO* model = new model_EBO(path);
+        this->models.push_back(model);
+    }
 
 };
 
