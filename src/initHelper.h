@@ -14,7 +14,10 @@ void basic_framebuffer_size_callback(GLFWwindow* window, int width, int height){
 }
 
 void init(int glfw_version_major, int glfw_version_minor, bool use_compat=false){
-    glfwInit();
+    if(!glfwInit()){ 
+        std::cout << "Error: Could not initialize GLFW" << std::endl; 
+        return; 
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfw_version_major);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfw_version_minor);
     glfwWindowHint(GLFW_OPENGL_PROFILE, (use_compat)? GLFW_OPENGL_COMPAT_PROFILE : GLFW_OPENGL_CORE_PROFILE);
