@@ -15,7 +15,9 @@ class model{
 protected:
     VBO m_vbo;
     VAO m_vao;
+    EBO m_ebo;
     VBO_layout m_layout;
+    bool has_ebo = false;
 
 public:
     shader m_shader;
@@ -23,11 +25,6 @@ public:
     glm::mat4 m_view = glm::mat4(1.0f);
     glm::mat4 m_projection = glm::mat4(1.0f);
     
-    model(){} // Constructor with no args will require loading the VBO/EBO manually.
-    model(std::string path){ // Load VBO from file (full path)
-        this->readVBO(path);
-    }
-
     void readVBO(std::string path){
         // Create a vector to store the data from the file:
         std::vector<float> VBO_data;
@@ -58,33 +55,6 @@ public:
         this->m_vao.addBuffer(this->m_vbo, this->m_layout);
     }
 
-    void setTransformUniforms(){
-        this->m_shader.use();
-        this->m_shader.setUniformMat4fv("model", glm::value_ptr(this->m_model));
-        this->m_shader.setUniformMat4fv("view", glm::value_ptr(this->m_view));
-        this->m_shader.setUniformMat4fv("projection", glm::value_ptr(this->m_projection));
-    }
-
-    void draw(){
-        this->setTransformUniforms();
-        this->m_shader.use();
-        this->m_vao.bind();
-        glDrawArrays(GL_TRIANGLES, 0, this->m_layout.getStride());
-    }
-};
-
-
-class model_EBO : public model{
-protected:
-    EBO m_ebo;
-
-public:
-    model_EBO(){}
-    model_EBO(std::string path){ // Load VBO from file (.vbo and .ebo assumed to be on the end of the path)
-        this->readVBO(path + ".vbo");
-        this->readEBO(path + ".ebo");
-    }
-
     void readEBO(std::string path){
         // Create a vector to store the data from the file:
         std::vector<unsigned int> EBO_data;
@@ -107,14 +77,26 @@ public:
         file.close();
         // Generate the EBO:
         this->m_ebo.generate(EBO_data, EBO_data.size() * sizeof(unsigned int));
+        this->has_ebo = true;
+    }
+
+    void setTransformUniforms(){
+        this->m_shader.use();
+        this->m_shader.setUniformMat4fv("model", glm::value_ptr(this->m_model));
+        this->m_shader.setUniformMat4fv("view", glm::value_ptr(this->m_view));
+        this->m_shader.setUniformMat4fv("projection", glm::value_ptr(this->m_projection));
     }
 
     void draw(){
         this->setTransformUniforms();
         this->m_shader.use();
         this->m_vao.bind();
-        this->m_ebo.bind();
-        glDrawElements(GL_TRIANGLES, this->m_ebo.getSize(), GL_UNSIGNED_INT, nullptr);
+        if(this->has_ebo){
+            this->m_ebo.bind();
+            glDrawElements(GL_TRIANGLES, this->m_ebo.getSize(), GL_UNSIGNED_INT, 0);
+        }else{
+            glDrawArrays(GL_TRIANGLES, 0, this->m_layout.getStride());
+        }
     }
 };
 

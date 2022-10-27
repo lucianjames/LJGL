@@ -6,15 +6,17 @@
 namespace LJGL{
 
 class world{
-public:
+protected:
     camera* cam;
     GLFWwindow* window;
-    std::vector<model_EBO*> models;
+    std::vector<model*> models;
+public:
 
     world(GLFWwindow* window){
         this->cam = new camera(window);
         this->window = window;
     }
+
     ~world(){
         delete cam;
         for(auto model : models){
@@ -22,13 +24,26 @@ public:
         }
     }
     
-    void createAddModel(std::string path){
-        model_EBO* model = new model_EBO(path);
-        this->models.push_back(model);
+    unsigned int createAddModel(std::string path){
+        model* m = new model();
+        m->readVBO(path);
+        this->models.push_back(m);
+        return this->models.size() - 1;
     }
 
-    void render(){ // Also handles input
+    unsigned int createAddModel_EBO(std::string path){
+        model* m = new model();
+        m->readVBO(path + ".vbo");
+        m->readEBO(path + ".ebo");
+        this->models.push_back(m);
+        return this->models.size() - 1;
+    }
+
+    void processInput(){
         this->cam->processInput();
+    }
+
+    void render(){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         for(auto m : models){
             m->m_view = this->cam->getViewMatrix();
