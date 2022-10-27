@@ -14,12 +14,12 @@ protected:
     VBO m_vbo;
     VAO m_vao;
     VBO_layout m_layout;
-    glm::mat4 m_model;
-    glm::mat4 m_view;
-    glm::mat4 m_projection;
 
 public:
     shader m_shader;
+    glm::mat4 m_model;
+    glm::mat4 m_view;
+    glm::mat4 m_projection;
 
     void readVBO(std::string path){
         // Create a vector to store the data from the file:
@@ -49,18 +49,6 @@ public:
         this->m_layout.pushFloat(3);
         this->m_layout.pushFloat(2);
         this->m_vao.addBuffer(this->m_vbo, this->m_layout);
-    }
-
-    void setModelT(glm::mat4 model){
-        this->m_model = model;
-    }
-
-    void setViewT(glm::mat4 view){
-        this->m_view = view;
-    }
-
-    void setProjectionT(glm::mat4 projection){
-        this->m_projection = projection;
     }
 
     void setTransformUniforms(){
