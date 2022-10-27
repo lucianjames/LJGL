@@ -27,6 +27,18 @@ public:
         this->models.push_back(model);
     }
 
+    void render(){ // Also handles input
+        this->cam->processInput();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        for(auto m : models){
+            m->m_view = this->cam->getViewMatrix();
+            m->m_projection = this->cam->getPerspectiveMatrix();
+            m->draw();
+        }
+        glfwSwapBuffers(this->window);
+        glfwPollEvents();
+    }
+
 };
 
 }
