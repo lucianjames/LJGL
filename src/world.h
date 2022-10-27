@@ -31,21 +31,11 @@ public:
         glfwPollEvents();
     }
 
-    template<typename T>
-    unsigned int addModel(T m){
-        this->models.push_back(m);
-        return this->models.size() - 1;
-    }
-
-    unsigned int addLoadModel(std::string path){
-        model m(path);
-        this->models.push_back(m);
-        return this->models.size() - 1;
-    }
-
     unsigned int addLoadModel_EBO(std::string path){
-        model_EBO m(path);
+        model_EBO m;
         this->models_EBO.push_back(m);
+        this->models_EBO.back().readVBO(path + ".vbo");
+        this->models_EBO.back().readEBO(path + ".ebo");
         return this->models_EBO.size() - 1;
     }
 
