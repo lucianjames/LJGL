@@ -14,7 +14,7 @@ public:
     std::vector<model> models;
 
     world(GLFWwindow* window){
-        this->cam = *camera(window);
+        this->cam = new camera(window);
         this->window = window;
     }
     
