@@ -17,7 +17,9 @@ public:
     }
     ~world(){
         delete cam;
-        delete model;
+        for(auto model : models){
+            delete model;
+        }
     }
 
 };
