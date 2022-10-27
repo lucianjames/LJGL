@@ -31,11 +31,12 @@ GLFWwindow* init(int w, int h, const char* title, int glfw_version_major, int gl
     glfwSetFramebufferSizeCallback(window, basic_framebuffer_size_callback);
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         std::cout << "Failed to initialize GLAD" << std::endl;
-        return;
+        return NULL;
     }
     glEnable(GL_DEPTH_TEST); // Enable depth testing
     glEnable(GL_CULL_FACE); // Cull back faces
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f); // Set the background color to a dark grey.
+    return window;
 }
 
 }
