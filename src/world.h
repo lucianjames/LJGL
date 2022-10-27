@@ -9,8 +9,9 @@ class world{
 protected:
     camera* cam;
     GLFWwindow* window;
-    std::vector<model*> models;
+    
 public:
+    std::vector<model*> models;
 
     world(GLFWwindow* window){
         this->cam = new camera(window);
