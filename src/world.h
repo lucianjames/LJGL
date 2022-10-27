@@ -12,6 +12,7 @@ protected:
 
 public:
     std::vector<model> models;
+    std::vector<model_EBO> models_EBO; // This is hacky, need to make the model class more flexible.
 
     world(GLFWwindow* window){
         this->cam = new camera(window);
@@ -22,6 +23,11 @@ public:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the color and depth buffers
         this->cam->processInput();
         for(auto &m : models){
+            m.m_projection = this->cam->getPerspectiveMatrix();
+            m.m_view = this->cam->getViewMatrix();
+            m.draw();
+        }
+        for(auto &m : models_EBO){
             m.m_projection = this->cam->getPerspectiveMatrix();
             m.m_view = this->cam->getViewMatrix();
             m.draw();
@@ -44,8 +50,8 @@ public:
 
     unsigned int addLoadModel_EBO(std::string path){
         model_EBO m(path);
-        this->models.push_back(m);
-        return this->models.size() - 1;
+        this->models_EBO.push_back(m);
+        return this->models_EBO.size() - 1;
     }
 
 };
