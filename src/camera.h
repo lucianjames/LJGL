@@ -78,6 +78,22 @@ public:
         if(glfwGetKey(this->window, GLFW_KEY_D) == GLFW_PRESS){ this->cameraPos += glm::normalize(glm::cross(cameraGlobals::cameraFront, cameraGlobals::cameraUp)) * 0.05f; }
     }
 
+    void processEscape(){
+        // If escape is pressed, free the cursor up
+        if(glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
+            glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+        // If the window is clicked, capture the cursor
+        if(glfwGetMouseButton(this->window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
+            glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        }
+    }
+
+    void processInput(){
+        this->processMovement();
+        this->processEscape();
+    }
+
 };
 
 }
