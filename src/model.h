@@ -56,16 +56,16 @@ public:
         this->m_shader.setUniformMat4fv("model", glm::value_ptr(this->m_model));
         this->m_shader.setUniformMat4fv("view", glm::value_ptr(this->m_view));
         this->m_shader.setUniformMat4fv("projection", glm::value_ptr(this->m_projection));
-        glUseProgram(0);
     }
 
     void draw(){
-        this->setTransformUniforms(); // <--- bad maybe ?
+        this->setTransformUniforms();
         this->m_shader.use();
         this->m_vao.bind();
         glDrawArrays(GL_TRIANGLES, 0, this->m_layout.getStride());
     }
 };
+
 
 class model_EBO : public model{
 protected:
@@ -97,7 +97,7 @@ public:
     }
 
     void draw(){
-        this->setTransformUniforms(); // <--- bad maybe ?
+        this->setTransformUniforms();
         this->m_shader.use();
         this->m_vao.bind();
         this->m_ebo.bind();
