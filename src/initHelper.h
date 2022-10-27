@@ -13,8 +13,11 @@ void basic_framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
 }
 
-void init(){
+void init(int glfw_version_major, int glfw_version_minor, bool use_compat=false){
     glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfw_version_major);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfw_version_minor);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, (use_compat)? GLFW_OPENGL_COMPAT_PROFILE : GLFW_OPENGL_CORE_PROFILE);
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         std::cout << "Failed to initialize GLAD" << std::endl;
         return;
