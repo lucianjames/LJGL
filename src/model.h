@@ -77,6 +77,7 @@ protected:
     EBO m_ebo;
 
 public:
+    model_EBO();
     model_EBO(std::string path){ // Load VBO from file (full path)
         this->readVBO(path);
         this->readEBO(path);
