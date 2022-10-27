@@ -20,6 +20,11 @@ public:
     glm::mat4 m_model = glm::mat4(1.0f);
     glm::mat4 m_view = glm::mat4(1.0f);
     glm::mat4 m_projection = glm::mat4(1.0f);
+    
+    model(); // Constructor with no args will require loading the VBO/EBO manually.
+    model(std::string path){ // Load VBO from file (full path)
+        this->readVBO(path);
+    }
 
     void readVBO(std::string path){
         // Create a vector to store the data from the file:
@@ -72,13 +77,18 @@ protected:
     EBO m_ebo;
 
 public:
-    void readEBO(std::string fileName){
+    model_EBO(std::string path){ // Load VBO from file (full path)
+        this->readVBO(path);
+        this->readEBO(path);
+    }
+
+    void readEBO(std::string path){
         // Create a vector to store the data from the file:
         std::vector<unsigned int> EBO_data;
         // Open the file:
-        std::ifstream file(fileName);
+        std::ifstream file(path);
         if(!file.is_open()){
-            std::cout << "Error: Could not open file " << fileName << std::endl;
+            std::cout << "Error: Could not open file " << path << std::endl;
             return;
         }
         // Read the file:
