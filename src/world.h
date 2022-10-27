@@ -22,11 +22,6 @@ public:
     void render(){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the color and depth buffers
         this->cam->processInput();
-        for(auto &m : models){
-            m.m_projection = this->cam->getPerspectiveMatrix();
-            m.m_view = this->cam->getViewMatrix();
-            m.draw();
-        }
         for(auto &m : models_EBO){
             m.m_projection = this->cam->getPerspectiveMatrix();
             m.m_view = this->cam->getViewMatrix();
