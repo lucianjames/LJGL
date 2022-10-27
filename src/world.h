@@ -9,7 +9,7 @@ class world{
 public:
     camera* cam;
     GLFWwindow* window;
-    model_EBO* model;
+    std::vector<model_EBO*> models;
 
     world(GLFWwindow* window){
         this->cam = new camera(window);
