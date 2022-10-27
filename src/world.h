@@ -30,21 +30,22 @@ public:
         glfwPollEvents();
     }
 
-    template<typename T> // Allows for any child of model to be added to the world
-    void addModel(T m){
+    template<typename T>
+    unsigned int addModel(T m){
         this->models.push_back(m);
+        return this->models.size() - 1;
     }
 
-    // Full file path for the model to be loaded
-    void addLoadModel(std::string path){
+    unsigned int addLoadModel(std::string path){
         model m(path);
         this->models.push_back(m);
+        return this->models.size() - 1;
     }
 
-    // File path ommiting the file extensions (.vbo and .ebo will be added automatically)
-    void addLoadModel_EBO(std::string path){
+    unsigned int addLoadModel_EBO(std::string path){
         model_EBO m(path);
         this->models.push_back(m);
+        return this->models.size() - 1;
     }
 
 };
