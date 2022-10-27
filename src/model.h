@@ -21,7 +21,7 @@ public:
     glm::mat4 m_view = glm::mat4(1.0f);
     glm::mat4 m_projection = glm::mat4(1.0f);
     
-    model(); // Constructor with no args will require loading the VBO/EBO manually.
+    model(){} // Constructor with no args will require loading the VBO/EBO manually.
     model(std::string path){ // Load VBO from file (full path)
         this->readVBO(path);
     }
@@ -77,7 +77,7 @@ protected:
     EBO m_ebo;
 
 public:
-    model_EBO();
+    model_EBO(){}
     model_EBO(std::string path){ // Load VBO from file (.vbo and .ebo assumed to be on the end of the path)
         this->readVBO(path + ".vbo");
         this->readEBO(path + ".ebo");
