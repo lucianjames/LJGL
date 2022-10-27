@@ -110,6 +110,7 @@ public:
     }
 
     void draw(){
+        std::cout << "EBO size: " << this->m_ebo.getSize() << std::endl;
         this->setTransformUniforms();
         this->m_shader.use();
         this->m_vao.bind();
