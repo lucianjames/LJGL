@@ -19,8 +19,9 @@ void init(){
         std::cout << "Failed to initialize GLAD" << std::endl;
         return;
     }
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST); // Enable depth testing
+    glEnable(GL_CULL_FACE); // Cull back faces
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f); // Set the background color to a dark grey.
 }
 
 GLFWwindow* createGlfwWindow(int width, int height, const char* title){
