@@ -9,41 +9,29 @@
 
 namespace LJGL{
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height){
+void basic_framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
 }
 
-void initGLFW(){
+void init(){
     glfwInit();
-    // I should probably change how the version hints work because what if i want to use a different version?
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return;
+    }
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 }
 
-GLFWwindow* createGLFWWindow(char name[]){
-    GLFWwindow* window = glfwCreateWindow(800, 600, name, NULL, NULL);
+GLFWwindow* createGlfwWindow(int width, int height, const char* title){
+    GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
     if(window == NULL){
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return NULL;
     }
     glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    return window;
-}
-
-void initGLAD(){
-    if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return;
-    }
-}
-
-GLFWwindow* setup(char name[]){
-    initGLFW();
-    GLFWwindow* window = createGLFWWindow(name);
-    initGLAD();
+    glfwSetFramebufferSizeCallback(window, basic_framebuffer_size_callback);
     return window;
 }
 
