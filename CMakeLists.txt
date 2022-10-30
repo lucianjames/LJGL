@@ -4,7 +4,7 @@ add_library(LJGL
 )
 
 find_package(OpenGL REQUIRED)
-find_package(glfw3 REQUIRED)
+add_subdirectory(glfw)
 add_subdirectory(glm)
 
 target_link_libraries(LJGL PUBLIC
