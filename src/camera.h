@@ -23,32 +23,34 @@ namespace cameraGlobals{
     bool firstMouse = true;
 }
 
-void mouse_callback(GLFWwindow* window, double xpos, double ypos){
-    if (cameraGlobals::firstMouse){
+namespace cameraCallbacks{
+    void mouse_callback(GLFWwindow* window, double xpos, double ypos){
+        if (cameraGlobals::firstMouse){
+            cameraGlobals::lastX = xpos;
+            cameraGlobals::lastY = ypos;
+            cameraGlobals::firstMouse = false;
+        }
+        float xoffset = xpos - cameraGlobals::lastX;
+        float yoffset = cameraGlobals::lastY - ypos; 
         cameraGlobals::lastX = xpos;
         cameraGlobals::lastY = ypos;
-        cameraGlobals::firstMouse = false;
+        float sensitivity = 0.1f;
+        xoffset *= sensitivity;
+        yoffset *= sensitivity;
+        cameraGlobals::yaw   += xoffset;
+        cameraGlobals::pitch += yoffset;
+        if(cameraGlobals::pitch > 89.0f){ cameraGlobals::pitch = 89.0f; }
+        if(cameraGlobals::pitch < -89.0f){ cameraGlobals::pitch = -89.0f; }
+        glm::vec3 direction;
+        direction.x = cos(glm::radians(cameraGlobals::yaw)) * cos(glm::radians(cameraGlobals::pitch));
+        direction.y = sin(glm::radians(cameraGlobals::pitch));
+        direction.z = sin(glm::radians(cameraGlobals::yaw)) * cos(glm::radians(cameraGlobals::pitch));
+        cameraGlobals::cameraFront = glm::normalize(direction);
     }
-    float xoffset = xpos - cameraGlobals::lastX;
-    float yoffset = cameraGlobals::lastY - ypos; 
-    cameraGlobals::lastX = xpos;
-    cameraGlobals::lastY = ypos;
-    float sensitivity = 0.1f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-    cameraGlobals::yaw   += xoffset;
-    cameraGlobals::pitch += yoffset;
-    if(cameraGlobals::pitch > 89.0f){ cameraGlobals::pitch = 89.0f; }
-    if(cameraGlobals::pitch < -89.0f){ cameraGlobals::pitch = -89.0f; }
-    glm::vec3 direction;
-    direction.x = cos(glm::radians(cameraGlobals::yaw)) * cos(glm::radians(cameraGlobals::pitch));
-    direction.y = sin(glm::radians(cameraGlobals::pitch));
-    direction.z = sin(glm::radians(cameraGlobals::yaw)) * cos(glm::radians(cameraGlobals::pitch));
-    cameraGlobals::cameraFront = glm::normalize(direction);
-}
 
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
-    cameraGlobals::fov -= (float)yoffset;
+    void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
+        cameraGlobals::fov -= (float)yoffset;
+    }
 }
 
 class camera{
@@ -59,8 +61,8 @@ public:
     camera(GLFWwindow* window){
         this->window = window;
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); 
-        glfwSetCursorPosCallback(window, mouse_callback);
-        glfwSetScrollCallback(window, scroll_callback);
+        glfwSetCursorPosCallback(window, cameraCallbacks::mouse_callback);
+        glfwSetScrollCallback(window, cameraCallbacks::scroll_callback);
     }
 
     glm::mat4 getViewMatrix(){
