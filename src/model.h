@@ -8,6 +8,7 @@
 #include "VAO.h"
 #include "EBO.h"
 #include "shader.h"
+#include "texture.h"
 
 namespace LJGL{
 
@@ -21,6 +22,7 @@ protected:
 
 public:
     shader m_shader;
+    texture m_texture;
     glm::mat4 m_model = glm::mat4(1.0f);
     glm::mat4 m_view = glm::mat4(1.0f);
     glm::mat4 m_projection = glm::mat4(1.0f);
@@ -89,6 +91,9 @@ public:
 
     void draw(){
         this->setTransformUniforms();
+        if(this->m_texture.textureLoaded){ // This class doesnt support texture units yet
+            this->m_texture.bind();
+        }
         this->m_shader.use();
         this->m_vao.bind();
         if(this->has_ebo){

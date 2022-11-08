@@ -6,6 +6,7 @@
 #include "camera.h"
 #include "world.h"
 #include "initHelper.h"
+#include "texture.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
