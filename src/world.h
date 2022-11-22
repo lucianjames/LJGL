@@ -11,29 +11,31 @@ protected:
     GLFWwindow* window;
     
 public:
-    std::vector<model> models;
-    
+    std::vector<model*> models;
+
     world(GLFWwindow* window){
-        this->window = window;
         this->cam = new camera(window);
+        this->window = window;
     }
 
-    int addModel(model m){
+    ~world(){
+        delete cam;
+        for(auto model : models){
+            delete model;
+        }
+    }
+    
+    unsigned int createAddModel(std::string path){
+        model* m = new model();
+        m->readVBO(path);
         this->models.push_back(m);
         return this->models.size() - 1;
     }
 
-    int createAddModel(std::string path){
-        model m;
-        m.readVBO(path);
-        this->models.push_back(m);
-        return this->models.size() - 1;
-    }
-
-    int createAddModel_EBO(std::string path){
-        model m;
-        m.readVBO(path + ".vbo");
-        m.readEBO(path + ".ebo");
+    unsigned int createAddModel_EBO(std::string path){
+        model* m = new model();
+        m->readVBO(path + ".vbo");
+        m->readEBO(path + ".ebo");
         this->models.push_back(m);
         return this->models.size() - 1;
     }
@@ -42,13 +44,12 @@ public:
         this->cam->processInput();
     }
 
-    void render(bool swapBuffers = true){
+    void render(){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         for(auto m : models){
-            std::cout << "Rendering model" << std::endl;
-            m.m_view = this->cam->getViewMatrix();
-            m.m_projection = this->cam->getPerspectiveMatrix();
-            m.draw();
+            m->m_view = this->cam->getViewMatrix();
+            m->m_projection = this->cam->getPerspectiveMatrix();
+            m->draw();
         }
         glfwSwapBuffers(this->window);
         glfwPollEvents();
