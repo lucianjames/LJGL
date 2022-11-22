@@ -24,7 +24,7 @@ public:
     }
 
     int createAddModel(std::string path){
-        model m = model();
+        model m = model(path);
         m.readVBO(path);
         this->models.push_back(m);
         return this->models.size() - 1;
