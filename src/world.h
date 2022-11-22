@@ -24,14 +24,14 @@ public:
     }
 
     int createAddModel(std::string path){
-        model m;
+        model m = model(path);
         m.readVBO(path);
         this->models.push_back(m);
         return this->models.size() - 1;
     }
 
     int createAddModel_EBO(std::string path){
-        model m;
+        model m = model();
         m.readVBO(path + ".vbo");
         m.readEBO(path + ".ebo");
         this->models.push_back(m);
