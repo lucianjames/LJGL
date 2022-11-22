@@ -102,6 +102,10 @@ public:
         }else{
             glDrawArrays(GL_TRIANGLES, 0, this->m_layout.getStride());
         }
+        // Cleanup:
+        if(this->m_texture.textureLoaded){
+            glBindTexture(GL_TEXTURE_2D, 0); // Unbind the texture so that it doesnt affect other objects that dont have a texture
+        }
     }
 };
 
