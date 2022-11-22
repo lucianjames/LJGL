@@ -45,6 +45,7 @@ public:
     void render(bool swapBuffers = true){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         for(auto m : models){
+            std::cout << "Rendering model" << std::endl;
             m.m_view = this->cam->getViewMatrix();
             m.m_projection = this->cam->getPerspectiveMatrix();
             m.draw();
