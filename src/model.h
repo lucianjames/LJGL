@@ -14,13 +14,13 @@ namespace LJGL{
 
 class model{
 protected:
+public:
     VBO m_vbo;
     VAO m_vao;
     EBO m_ebo;
     VBO_layout m_layout;
     bool has_ebo = false;
 
-public:
     shader m_shader;
     texture m_texture;
     glm::mat4 m_model = glm::mat4(1.0f);
