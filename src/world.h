@@ -13,7 +13,7 @@ public:
     GLFWwindow* window;
     std::vector<model> models;
     
-    world(GLFWwindow* window, camera* cam){
+    world(){
         this->window = window;
         this->cam = cam;
     }
