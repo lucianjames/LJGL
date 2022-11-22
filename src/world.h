@@ -7,15 +7,15 @@ namespace LJGL{
 
 class world{
 protected:
-    
-public:
     camera* cam;
     GLFWwindow* window;
+    
+public:
     std::vector<model> models;
     
-    world(){
+    world(GLFWwindow* window){
         this->window = window;
-        this->cam = cam;
+        this->cam = new camera(window);
     }
 
     int addModel(model m){
