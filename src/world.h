@@ -11,7 +11,7 @@ protected:
     GLFWwindow* window;
     
 public:
-    std::vector<model> models;
+    std::vector<model*> models;
 
     world(GLFWwindow* window){
         this->cam = new camera(window);
@@ -20,19 +20,22 @@ public:
 
     ~world(){
         delete cam;
+        for(auto model : models){
+            delete model;
+        }
     }
     
     unsigned int createAddModel(std::string path){
-        model m;
-        m.readVBO(path);
+        model* m = new model();
+        m->readVBO(path);
         this->models.push_back(m);
         return this->models.size() - 1;
     }
 
     unsigned int createAddModel_EBO(std::string path){
-        model m;
-        m.readVBO(path + ".vbo");
-        m.readEBO(path + ".ebo");
+        model* m = new model();
+        m->readVBO(path + ".vbo");
+        m->readEBO(path + ".ebo");
         this->models.push_back(m);
         return this->models.size() - 1;
     }
@@ -44,9 +47,9 @@ public:
     void render(){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         for(auto m : models){
-            m.m_view = this->cam->getViewMatrix();
-            m.m_projection = this->cam->getPerspectiveMatrix();
-            m.draw();
+            m->m_view = this->cam->getViewMatrix();
+            m->m_projection = this->cam->getPerspectiveMatrix();
+            m->draw();
         }
         glfwSwapBuffers(this->window);
         glfwPollEvents();
