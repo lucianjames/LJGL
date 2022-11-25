@@ -11,9 +11,6 @@ protected:
     unsigned int m_instance_count = 1;
 
 public:
-    instancedModel(){
-        
-    }
 
     // Putting this function here so I can manage the VAO quickly and easily
     void readVBO(std::string path){
@@ -38,14 +35,13 @@ public:
         file.close();
         // Generate the VBO:
         this->m_vbo.generate(VBO_data, VBO_data.size() * sizeof(float));
-        this->m_instanced_vbo.generate(std::vector<float>{0.0f, 0.0f, 0.0f}, 3 * sizeof(float));
+        this->m_instanced_vbo.generate(std::vector<float>{0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f}, 6 * sizeof(float));
         // Create the VAO:
         this->m_layout; // THIS IS ASSUMED !!!!! HARD CODED !!!!! BAD !!!!!
         this->m_layout.pushFloat(3);
         this->m_layout.pushFloat(3);
         this->m_layout.pushFloat(2);
         this->m_instanced_layout.pushFloat(3);
-        
         this->m_vao.addBuffer(this->m_vbo, this->m_layout);
         this->m_vao.addBuffer(this->m_instanced_vbo, this->m_instanced_layout);
         this->m_vao.enableAttribDivisorOnLastBuffer(1);
@@ -70,7 +66,7 @@ public:
         this->m_vao.bind();
         if(this->has_ebo){
             this->m_ebo.bind();
-            glDrawElementsInstanced(GL_TRIANGLES, this->m_ebo.getSize() * this->m_instance_count, GL_UNSIGNED_INT, 0, this->m_instance_count);
+            glDrawElementsInstanced(GL_TRIANGLES, this->m_ebo.getSize(), GL_UNSIGNED_INT, 0, this->m_instance_count);
         }else{
             glDrawArraysInstanced(GL_TRIANGLES, 0, this->m_layout.getStride(), this->m_instance_count);
         }
