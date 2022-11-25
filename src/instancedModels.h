@@ -52,8 +52,8 @@ public:
         this->m_vao.addBuffer(this->m_instanced_vbo, this->m_instanced_layout);
         this->m_vao.enableAttribDivisorOnLastBuffer(1);
     }
-    
-    void addInstacePoint(float x, float y, float z){ // An overload in case you dont feel like using glm
+
+    void addInstancePoint(float x, float y, float z){ // An overload in case you dont feel like using glm
         this->m_instance_positions[this->m_instance_count * 3] = x;
         this->m_instance_positions[this->m_instance_count * 3 + 1] = y;
         this->m_instance_positions[this->m_instance_count * 3 + 2] = z;
