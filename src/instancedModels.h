@@ -8,7 +8,7 @@ class instancedModel : public model{
 protected:
     VBO m_instanced_vbo;
     VBO_layout m_instanced_layout;
-    unsigned int m_instance_count = 1;
+    unsigned int m_instance_count = 0;
     unsigned int MAX_INSTANCES;
     std::vector<float> m_instance_positions;
 
@@ -51,14 +51,6 @@ public:
         this->m_vao.addBuffer(this->m_vbo, this->m_layout);
         this->m_vao.addBuffer(this->m_instanced_vbo, this->m_instanced_layout);
         this->m_vao.enableAttribDivisorOnLastBuffer(1);
-    }
-
-    void addInstancePoint(glm::vec3 point){
-        this->m_instance_positions[this->m_instance_count * 3] = point.x;
-        this->m_instance_positions[this->m_instance_count * 3 + 1] = point.y;
-        this->m_instance_positions[this->m_instance_count * 3 + 2] = point.z;
-        this->m_instance_count++;
-        this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
     
     void addInstacePoint(float x, float y, float z){ // An overload in case you dont feel like using glm
