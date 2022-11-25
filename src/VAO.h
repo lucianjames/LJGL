@@ -36,8 +36,8 @@ public:
     }
 
     void enableAttribDivisorOnLastBuffer(unsigned int divisor){
-    glVertexAttribDivisor(attribOffset-1, divisor);
-}
+        glVertexAttribDivisor(attribOffset-1, divisor);
+    }
 };
 
 }

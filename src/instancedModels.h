@@ -50,12 +50,12 @@ public:
     }
 
     void addInstancePoint(glm::vec3 point){
-        this->m_instanced_vbo.subData(std::vector<float>{point.x, point.y, point.z}, 3 * sizeof(float));
+        this->m_instanced_vbo.subData(std::vector<float>{point.x, point.y, point.z}, 3 * sizeof(float) * this->m_instance_count);
         this->m_instance_count++;
     }
     
     void addInstacePoint(float x, float y, float z){ // An overload in case you dont feel like using glm
-        this->m_instanced_vbo.subData(std::vector<float>{x, y, z}, 3 * sizeof(float));
+        this->m_instanced_vbo.subData(std::vector<float>{x, y, z}, 3 * sizeof(float) * this->m_instance_count);
         this->m_instance_count++;
     }
 
