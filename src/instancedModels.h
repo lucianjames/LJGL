@@ -54,17 +54,17 @@ public:
     }
 
     void addInstancePoint(glm::vec3 point){
-        this->m_instance_positions.push_back(point.x);
-        this->m_instance_positions.push_back(point.y);
-        this->m_instance_positions.push_back(point.z);
+        this->m_instance_positions[this->m_instance_count * 3] = point.x;
+        this->m_instance_positions[this->m_instance_count * 3 + 1] = point.y;
+        this->m_instance_positions[this->m_instance_count * 3 + 2] = point.z;
         this->m_instance_count++;
         this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
     
     void addInstacePoint(float x, float y, float z){ // An overload in case you dont feel like using glm
-        this->m_instance_positions.push_back(x);
-        this->m_instance_positions.push_back(y);
-        this->m_instance_positions.push_back(z);
+        this->m_instance_positions[this->m_instance_count * 3] = x;
+        this->m_instance_positions[this->m_instance_count * 3 + 1] = y;
+        this->m_instance_positions[this->m_instance_count * 3 + 2] = z;
         this->m_instance_count++;
         this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
