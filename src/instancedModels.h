@@ -48,6 +48,7 @@ public:
         
         this->m_vao.addBuffer(this->m_vbo, this->m_layout);
         this->m_vao.addBuffer(this->m_instanced_vbo, this->m_instanced_layout);
+        this->m_vao.enableAttribDivisorOnLastBuffer(1);
     }
 
     void addInstancePoint(glm::vec3 point){
