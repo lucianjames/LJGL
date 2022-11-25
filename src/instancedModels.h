@@ -68,6 +68,7 @@ public:
 
     void setInstancePositions(std::vector<float>& newPositions){
         this->m_instance_positions = newPositions;
+        this->m_instance_count += newPositions.size()/3;
         this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
 
