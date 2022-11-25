@@ -11,6 +11,10 @@ protected:
     unsigned int m_instance_count = 0;
 
 public:
+    instancedModel(){
+        this->m_instanced_vbo.generate(std::vector<float>(), 0);
+    }
+
     // Putting this function here so I can manage the VAO quickly and easily
     void readVBO(std::string path){
         // Create a vector to store the data from the file:
