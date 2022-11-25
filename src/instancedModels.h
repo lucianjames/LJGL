@@ -44,8 +44,9 @@ public:
         this->m_layout.pushFloat(3);
         this->m_layout.pushFloat(3);
         this->m_layout.pushFloat(2);
-        this->m_vao.addBuffer(this->m_vbo, this->m_layout);
         this->m_instanced_layout.pushFloat(3);
+        
+        this->m_vao.addBuffer(this->m_vbo, this->m_layout);
         this->m_vao.addBuffer(this->m_instanced_vbo, this->m_instanced_layout);
     }
 
