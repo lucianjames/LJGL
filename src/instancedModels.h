@@ -63,6 +63,7 @@ public:
             std::cout << "Error: Maximum number of instances reached" << std::endl;
             std::cout << "This error should be handled better later (it should crash your program to punish you for being stupid)" << std::endl;
         }
+        this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
 
     void draw(){
