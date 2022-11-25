@@ -69,7 +69,7 @@ public:
         this->m_vao.bind();
         if(this->has_ebo){
             this->m_ebo.bind();
-            glDrawElementsInstanced(GL_TRIANGLES, this->m_ebo.getSize(), GL_UNSIGNED_INT, 0, this->m_instance_count);
+            glDrawElementsInstanced(GL_TRIANGLES, this->m_ebo.getSize() * this->m_instance_count, GL_UNSIGNED_INT, 0, this->m_instance_count);
         }else{
             glDrawArraysInstanced(GL_TRIANGLES, 0, this->m_layout.getStride(), this->m_instance_count);
         }
