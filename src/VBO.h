@@ -25,6 +25,11 @@ public:
     void bind(){
         glBindBuffer(GL_ARRAY_BUFFER, this->ID);
     }
+
+    void subData(std::vector<float> vertices, unsigned int size) {
+        glBindBuffer(GL_ARRAY_BUFFER, this->ID); // Bind the buffer to the GL_ARRAY_BUFFER target
+        glBufferSubData(GL_ARRAY_BUFFER, 0, size, &vertices[0]); // Send the data to the buffer
+    }
 };
 
 // This struct is used in the VBO_layout class to store data about each part of the vertex data layout:
