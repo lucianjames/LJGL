@@ -54,11 +54,15 @@ public:
     }
 
     void addInstancePoint(float x, float y, float z){ // An overload in case you dont feel like using glm
-        this->m_instance_positions[this->m_instance_count * 3] = x;
-        this->m_instance_positions[this->m_instance_count * 3 + 1] = y;
-        this->m_instance_positions[this->m_instance_count * 3 + 2] = z;
-        this->m_instance_count++;
-        this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
+        if(this->m_instance_count < this->MAX_INSTANCES){
+            this->m_instance_positions[this->m_instance_count * 3] = x;
+            this->m_instance_positions[this->m_instance_count * 3 + 1] = y;
+            this->m_instance_positions[this->m_instance_count * 3 + 2] = z;
+            this->m_instance_count++;
+        }else{
+            std::cout << "Error: Maximum number of instances reached" << std::endl;
+            std::cout << "This error should be handled better later (it should crash your program to punish you for being stupid)" << std::endl;
+        }
     }
 
     void draw(){
