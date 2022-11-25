@@ -66,6 +66,10 @@ public:
         this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
 
+    void setInstanceVBO(std::vector<float> data){
+        this->m_instanced_vbo.subData(data, sizeof(data));
+    }
+
     void draw(){
         this->setTransformUniforms();
         if(this->m_texture.textureLoaded){ // This class doesnt support texture units yet
