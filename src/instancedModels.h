@@ -4,7 +4,7 @@
 
 namespace LJGL{
 
-class instancedModel : protected model{
+class instancedModel : public model{
 protected:
     VBO m_instanced_vbo;
     VBO_layout m_instanced_layout;
