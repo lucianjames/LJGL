@@ -8,7 +8,7 @@ class instancedModel : public model{
 protected:
     VBO m_instanced_vbo;
     VBO_layout m_instanced_layout;
-    unsigned int m_instance_count = 0;
+    unsigned int m_instance_count = 1;
 
 public:
     instancedModel(){
