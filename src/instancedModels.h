@@ -67,7 +67,7 @@ public:
     }
 
     void setInstanceVBO(std::vector<float> data){
-        this->m_instanced_vbo.subData(data, sizeof(data));
+        this->m_instanced_vbo.subData(data, data.size() * sizeof(float));
     }
 
     void draw(){
