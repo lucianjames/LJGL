@@ -66,8 +66,9 @@ public:
         this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
 
-    void setInstanceVBO(std::vector<float> data){
-        this->m_instanced_vbo.subData(data, data.size() * sizeof(float));
+    void setInstancePositions(std::vector<float>& newPositions){
+        this->m_instance_positions = newPositions;
+        this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
 
     void draw(){
