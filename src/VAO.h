@@ -29,7 +29,7 @@ public:
         for (int i = 0; i < elements.size(); i++) {
             const auto& element = elements[i]; // Get the element
             glEnableVertexAttribArray(i + attribOffset); // Enable the attribute
-            glVertexAttribPointer(i + attribOffset, element.count, element.type, element.normalised, layout.getStride(), (const void*)offset); // Set the attribute
+            glVertexAttribPointer(i + attribOffset, element.count, element.type, element.normalized, layout.getStride(), (const void*)offset); // Set the attribute
             offset += element.count * VBO_element::getSizeOfType(element.type); // Increase the offset
         }
         this->attribOffset += elements.size(); // Increase the attribOffset for the next VBO to be added
