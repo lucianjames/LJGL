@@ -12,7 +12,7 @@ protected:
 
 public:
     instancedModel(){
-        this->m_instanced_vbo.generate(std::vector<float>{0.0f, 0.0f, 0.0f}, 3 * sizeof(float));
+        
     }
 
     // Putting this function here so I can manage the VAO quickly and easily
@@ -38,6 +38,7 @@ public:
         file.close();
         // Generate the VBO:
         this->m_vbo.generate(VBO_data, VBO_data.size() * sizeof(float));
+        this->m_instanced_vbo.generate(std::vector<float>{0.0f, 0.0f, 0.0f}, 3 * sizeof(float));
         // Create the VAO:
         this->m_layout; // THIS IS ASSUMED !!!!! HARD CODED !!!!! BAD !!!!!
         this->m_layout.pushFloat(3);
