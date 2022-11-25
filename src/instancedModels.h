@@ -9,8 +9,14 @@ protected:
     VBO m_instanced_vbo;
     VBO_layout m_instanced_layout;
     unsigned int m_instance_count = 1;
+    unsigned int MAX_INSTANCES;
+    std::vector<float> m_instance_positions;
 
 public:
+    instancedModel(unsigned int maxInstances){
+        this->MAX_INSTANCES = maxInstances;
+        this->m_instance_positions.resize(this->MAX_INSTANCES * 3);
+    }
 
     // Putting this function here so I can manage the VAO quickly and easily
     void readVBO(std::string path){
@@ -35,7 +41,7 @@ public:
         file.close();
         // Generate the VBO:
         this->m_vbo.generate(VBO_data, VBO_data.size() * sizeof(float));
-        this->m_instanced_vbo.generate(std::vector<float>{0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f}, 6 * sizeof(float));
+        this->m_instanced_vbo.generate(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
         // Create the VAO:
         this->m_layout; // THIS IS ASSUMED !!!!! HARD CODED !!!!! BAD !!!!!
         this->m_layout.pushFloat(3);
@@ -48,13 +54,19 @@ public:
     }
 
     void addInstancePoint(glm::vec3 point){
-        this->m_instanced_vbo.subData(std::vector<float>{point.x, point.y, point.z}, 3 * sizeof(float) * this->m_instance_count);
+        this->m_instance_positions.push_back(point.x);
+        this->m_instance_positions.push_back(point.y);
+        this->m_instance_positions.push_back(point.z);
         this->m_instance_count++;
+        this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
     
     void addInstacePoint(float x, float y, float z){ // An overload in case you dont feel like using glm
-        this->m_instanced_vbo.subData(std::vector<float>{x, y, z}, 3 * sizeof(float) * this->m_instance_count);
+        this->m_instance_positions.push_back(x);
+        this->m_instance_positions.push_back(y);
+        this->m_instance_positions.push_back(z);
         this->m_instance_count++;
+        this->m_instanced_vbo.subData(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
     }
 
     void draw(){
