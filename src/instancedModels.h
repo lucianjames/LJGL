@@ -36,7 +36,7 @@ public:
         }
         // Close the file:
         file.close();
-        // Generate the VBO:
+        // Generate the VBOs:
         this->m_vbo.generate(VBO_data, VBO_data.size() * sizeof(float));
         this->m_instanced_vbo.generate(std::vector<float>{0.0f, 0.0f, 0.0f}, 3 * sizeof(float));
         // Create the VAO:
@@ -44,8 +44,9 @@ public:
         this->m_layout.pushFloat(3);
         this->m_layout.pushFloat(3);
         this->m_layout.pushFloat(2);
-        this->m_vao.addBuffer(this->m_vbo, this->m_layout);
         this->m_instanced_layout.pushFloat(3);
+
+        this->m_vao.addBuffer(this->m_vbo, this->m_layout);
         this->m_vao.addBuffer(this->m_instanced_vbo, this->m_instanced_layout);
     }
 
@@ -66,12 +67,7 @@ public:
         }
         this->m_shader.use();
         this->m_vao.bind();
-        if(this->has_ebo){
-            this->m_ebo.bind();
-            glDrawElementsInstanced(GL_TRIANGLES, this->m_ebo.getSize(), GL_UNSIGNED_INT, 0, this->m_instance_count);
-        }else{
-            glDrawArraysInstanced(GL_TRIANGLES, 0, this->m_layout.getStride(), this->m_instance_count);
-        }
+        glDrawArraysInstanced(GL_TRIANGLES, 0, this->m_layout.getStride(), this->m_instance_count);
     }
 };
 
