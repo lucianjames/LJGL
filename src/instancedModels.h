@@ -41,7 +41,7 @@ public:
         file.close();
         // Generate the VBO:
         this->m_vbo.generate(VBO_data, VBO_data.size() * sizeof(float));
-        this->m_instanced_vbo.generate(this->m_instance_positions, this->m_instance_positions.size() * sizeof(float));
+        this->m_instanced_vbo.generate(this->m_instance_positions, 81 * sizeof(float));
         // Create the VAO:
         this->m_layout; // THIS IS ASSUMED !!!!! HARD CODED !!!!! BAD !!!!!
         this->m_layout.pushFloat(3);
