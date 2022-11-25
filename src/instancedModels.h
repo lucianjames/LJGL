@@ -41,7 +41,7 @@ public:
         file.close();
         // Generate the VBO:
         this->m_vbo.generate(VBO_data, VBO_data.size() * sizeof(float));
-        this->m_instanced_vbo.generate(this->m_instance_positions, 81 * sizeof(float));
+        this->m_instanced_vbo.generate(this->m_instance_positions, this->MAX_INSTANCES * 3 * sizeof(float));
         // Create the VAO:
         this->m_layout; // THIS IS ASSUMED !!!!! HARD CODED !!!!! BAD !!!!!
         this->m_layout.pushFloat(3);
@@ -70,7 +70,7 @@ public:
         this->m_vao.bind();
         if(this->has_ebo){
             this->m_ebo.bind();
-            glDrawElementsInstanced(GL_TRIANGLES, this->m_ebo.getSize() * this->m_instance_count, GL_UNSIGNED_INT, 0, this->m_instance_count);
+            glDrawElementsInstanced(GL_TRIANGLES, this->m_ebo.getSize(), GL_UNSIGNED_INT, 0, this->m_instance_count);
         }else{
             glDrawArraysInstanced(GL_TRIANGLES, 0, this->m_layout.getStride(), this->m_instance_count);
         }
