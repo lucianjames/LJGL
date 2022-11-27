@@ -8,7 +8,6 @@
 #include "initHelper.h"
 #include "texture.h"
 #include "instancedModels.h"
-#include "assimpModel.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
