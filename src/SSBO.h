@@ -15,10 +15,10 @@ public:
         glDeleteBuffers(1, &ID);
     }
 
-    void generate(std::vector<float> data, unsigned int size){
+    void generate(const void* data, unsigned int size){
         glGenBuffers(1, &this->ID); // Generate 1 buffer
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, this->ID); // Bind the buffer to the GL_SHADER_STORAGE_BUFFER target
-        glBufferData(GL_SHADER_STORAGE_BUFFER, size, &data[0], GL_DYNAMIC_COPY); // Send the data to the buffer
+        glBufferData(GL_SHADER_STORAGE_BUFFER, size, data, GL_DYNAMIC_COPY); // Send the data to the buffer
     }
 
     void bind(unsigned int shaderID, std::string name){
