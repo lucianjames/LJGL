@@ -8,7 +8,7 @@
 
 namespace LJGL{
 
-class shader{
+class computeShader{
 public:
     unsigned int ID; // Shader ID, Ideally this wouldnt need to be public
 
