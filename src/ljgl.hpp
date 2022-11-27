@@ -9,6 +9,7 @@
 #include "texture.h"
 #include "instancedModels.h"
 #include "computeShader.h"
+#include "SSBO.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
