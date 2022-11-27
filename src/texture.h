@@ -54,6 +54,12 @@ public:
         glBindTexture(GL_TEXTURE_2D, this->textureID);
     }
 
+    void activeBind(unsigned int texid, unsigned int unit){
+        glActiveTexture(GL_TEXTURE0 + texid);
+        glBindTextureUnit(unit, this->textureID);
+        glBindImageTexture(unit, this->textureID, 0, GL_FALSE, 0, GL_READ_WRITE, GL_RGBA32F);
+    }
+
     void bindUnit(unsigned int unit) {
         glActiveTexture(GL_TEXTURE0 + unit);
         glBindTexture(GL_TEXTURE_2D, this->textureID);
