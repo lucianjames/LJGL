@@ -6,6 +6,8 @@
 #include <glad/glad.h>
 #include <iostream>
 
+namespace LJGL{
+
 class texture {
 private:
     unsigned int textureID;
@@ -47,3 +49,5 @@ public:
 
     // TODO: more texture options
 };
+
+}
