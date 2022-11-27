@@ -4,9 +4,9 @@ add_library(LJGL
 )
 
 find_package(OpenGL REQUIRED)
+find_package(assimp)
 add_subdirectory(glfw)
 add_subdirectory(glm)
-add_subdirectory(assimp)
 
 target_link_libraries(LJGL PUBLIC
 	${OPENGL_LIBRARIES}
