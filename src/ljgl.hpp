@@ -1,3 +1,5 @@
+#pragma once
+
 #include "VBO.h"
 #include "VAO.h"
 #include "EBO.h"
